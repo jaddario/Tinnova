@@ -18,7 +18,7 @@ public class Veiculo {
 	private Long id;
 	@Column(name = "veiculo")
 	private String modelo;
-	@Column(name = "marca")
+	@Column(name = "fabricante")
 	private String marca;
 	@Column(name = "ano")
 	private int ano;
@@ -30,4 +30,9 @@ public class Veiculo {
 	private Date created;
 	@Column(name = "updated", nullable = true)
 	private Date updated;
+
+	public Veiculo() {
+		this.created = new Date();
+	}
+
 }

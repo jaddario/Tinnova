@@ -1,24 +1,30 @@
 package br.com.addario.cadastroveiculo.repository;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import br.com.addario.cadastroveiculo.model.Veiculo;
 
-public interface VeiculoRepository extends JpaRepository<Veiculo, Long>{
-	
-	@Query("select v from Veiculo where v.vendido = FALSE")
+public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
+
+	@Query("select v from Veiculo v where v.vendido = FALSE")
 	public void updateVeiculo(long id, Veiculo veiculo);
 
-	@Query("select count(v) from Veiculo where v.vendido = FALSE")
-	public int getVeiculosNaoVendidos();
+	@Query("select count(v) from Veiculo v where v.vendido = FALSE")
+	public Long getVeiculosNaoVendidos();
 
-	@Query("select count(v) from Veiculo where v.ano =:1")
-	public int getVeiculosPorDecadaDeFabricacao(int decada);
+	@Query("select count(v) from Veiculo v where v.ano between :startDate and :endDate")
+	public Long getVeiculosPorDecadaDeFabricacao(@Param(value = "startDate") int startDate,
+			@Param(value = "endDate") int endDate);
 
-	@Query("select count(v) from Veiculo where v.marca =:1")
-	public int getVeiculosPorFabricante(String fabricante);
-	
-	
+	@Query("select count(v) from Veiculo v where v.marca =:fabricante")
+	public Long getVeiculosPorFabricante(@Param(value = "fabricante") String fabricante);
+
+	@Query("select v from Veiculo v where v.created > :primeiroDiaDaSemanaPassada")
+	public List<Veiculo> getVeiculosRegistradosDuranteAUltimaSemana(@Param(value = "primeiroDiaDaSemanaPassada") Date primeiroDiaDaSemanaPassada);
 
 }
