@@ -2,6 +2,8 @@ package br.com.addario.cadastroveiculo.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +23,8 @@ public class VeiculoServiceImpl implements VeiculoService {
 	}
 
 	@Override
-	public void cadastraVeiculo(Veiculo veiculo) {
-		repository.save(veiculo);
+	public Veiculo cadastraVeiculo(Veiculo veiculo) {
+		return repository.save(veiculo);
 	}
 
 	@Override
@@ -55,4 +57,8 @@ public class VeiculoServiceImpl implements VeiculoService {
 		return repository.getVeiculosRegistradosDuranteAUltimaSemana(primeiroDiaDaSemanaPassada);
 	}
 
+	@Override
+	public Optional<Veiculo> findById(long id) {
+		return repository.findById(id);
+	}
 }

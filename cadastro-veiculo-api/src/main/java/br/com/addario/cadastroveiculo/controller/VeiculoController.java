@@ -4,12 +4,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +65,35 @@ public class VeiculoController {
 		calendar.add(Calendar.DAY_OF_MONTH, -7);
 		Date primeiroDiaDaSemanaPassada = calendar.getTime();
 		return service.getVeiculosRegistradosDuranteAUltimaSemana(primeiroDiaDaSemanaPassada);
+	}
+
+	@PatchMapping(path = "/{id}")
+	public ResponseEntity<Veiculo> atualizaVeiculo(@PathVariable("id") long id, @RequestBody Veiculo veiculoUpdate) {
+		Optional<Veiculo> veiculoOptional = service.findById(id);
+		if (!veiculoOptional.isPresent())
+			return ResponseEntity.notFound().build();
+
+		Veiculo veiculo = veiculoOptional.get();
+		if (veiculoUpdate.getMarca() != null) {
+			veiculo.setMarca(veiculoUpdate.getMarca());
+		}
+		if (veiculoUpdate.getModelo() != null) {
+			veiculo.setModelo(veiculoUpdate.getModelo());
+		}
+		if (veiculoUpdate.getAno() != 0) {
+			veiculo.setAno(veiculoUpdate.getAno());
+		}
+		if (veiculoUpdate.getDescricao() != null) {
+			veiculo.setDescricao(veiculoUpdate.getDescricao());
+		}
+		if (veiculoUpdate.isVendido()) {
+			veiculo.setVendido(veiculoUpdate.isVendido());
+		}
+
+		veiculo.setUpdated(new Date());
+		service.cadastraVeiculo(veiculo);
+
+		return ResponseEntity.ok().build();
 	}
 
 }

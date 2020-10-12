@@ -2,6 +2,7 @@ package br.com.addario.cadastroveiculo.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import br.com.addario.cadastroveiculo.model.Veiculo;
 @Service
 public interface VeiculoService {
 
-	public void cadastraVeiculo(Veiculo veiculo);
+	public Veiculo cadastraVeiculo(Veiculo veiculo);
 
 	public void removeVeiculo(long id);
 
@@ -25,5 +26,7 @@ public interface VeiculoService {
 	public List<Veiculo> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada);
 
 	public List<Veiculo> getTodosOsVeiculos();
+
+	public Optional<Veiculo> findById(long id);
 
 }
