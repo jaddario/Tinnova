@@ -38,4 +38,15 @@ public class Veiculo {
 		this.created = new Date();
 	}
 
+	public Veiculo(Long id, String modelo, String marca, int ano, String descricao) {
+		this.id = id;
+		this.modelo = modelo;
+		this.marca = marca;
+		this.ano = ano;
+		this.descricao = descricao;
+		this.created = new Date();
+	}
+	
+	
+
 }
