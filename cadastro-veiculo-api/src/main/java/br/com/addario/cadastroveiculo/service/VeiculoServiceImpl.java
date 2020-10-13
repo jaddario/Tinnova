@@ -58,7 +58,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 	}
 
 	@Override
-	public Optional<Veiculo> findById(long id) {
+	public Optional<Veiculo> getVeiculoPeloId(long id) {
 		return repository.findById(id);
 	}
 }

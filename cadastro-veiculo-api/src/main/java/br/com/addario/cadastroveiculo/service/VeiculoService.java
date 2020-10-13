@@ -27,6 +27,6 @@ public interface VeiculoService {
 
 	public List<Veiculo> getTodosOsVeiculos();
 
-	public Optional<Veiculo> findById(long id);
+	public Optional<Veiculo> getVeiculoPeloId(long id);
 
 }
