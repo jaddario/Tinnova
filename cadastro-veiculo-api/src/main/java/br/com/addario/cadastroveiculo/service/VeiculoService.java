@@ -6,16 +6,16 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.addario.cadastroveiculo.model.Veiculo;
+import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 
 @Service
 public interface VeiculoService {
 
-	public Veiculo cadastraVeiculo(Veiculo veiculo);
+	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo);
 
 	public void removeVeiculo(long id);
 
-	public void atualizaVeiculo(long id, Veiculo veiculo);
+	public void atualizaVeiculo(long id, VeiculoEntity veiculo);
 
 	public Long getVeiculosNaoVendidos();
 
@@ -23,10 +23,10 @@ public interface VeiculoService {
 
 	public Long getVeiculosPorFabricante(String fabricante);
 
-	public List<Veiculo> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada);
+	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada);
 
-	public List<Veiculo> getTodosOsVeiculos();
+	public List<VeiculoEntity> getTodosOsVeiculos();
 
-	public Optional<Veiculo> getVeiculoPeloId(long id);
+	public Optional<VeiculoEntity> getVeiculoPeloId(long id);
 
 }

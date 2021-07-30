@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.controller;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.addario.cadastroveiculo.model.Veiculo;
+import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 import br.com.addario.cadastroveiculo.service.VeiculoService;
 import io.swagger.annotations.ApiOperation;
 
@@ -31,15 +32,15 @@ public class VeiculoController {
 	private VeiculoService service;
 
 	@GetMapping
-	@ApiOperation(value = "Retorna todos os veículos na base", response = Veiculo.class)
-	public List<Veiculo> getTodosOsVeiculos() {
+	@ApiOperation(value = "Retorna todos os veículos na base", response = VeiculoEntity.class)
+	public List<VeiculoEntity> getTodosOsVeiculos() {
 		return service.getTodosOsVeiculos();
 	}
 
 	@PostMapping
-	@ApiOperation(value = "Cadastra veículo na base", response = Veiculo.class)
-	public ResponseEntity<Veiculo> cadastraVeiculo(@RequestBody Veiculo veiculo) {
-		Veiculo veiculoSalvo = service.cadastraVeiculo(veiculo);
+	@ApiOperation(value = "Cadastra veículo na base", response = VeiculoEntity.class)
+	public ResponseEntity<VeiculoEntity> cadastraVeiculo(@RequestBody VeiculoEntity veiculo) {
+		VeiculoEntity veiculoSalvo = service.cadastraVeiculo(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoSalvo.getId())
 				.toUri();
 		return ResponseEntity.created(uri).build();
@@ -52,8 +53,8 @@ public class VeiculoController {
 	}
 
 	@GetMapping(path = "find/{id}")
-	@ApiOperation(value = "Retorna veículo pelo id", response = Veiculo.class)
-	public ResponseEntity<Veiculo> getVeiculoPeloId(@PathVariable long id) {
+	@ApiOperation(value = "Retorna veículo pelo id", response = VeiculoEntity.class)
+	public ResponseEntity<VeiculoEntity> getVeiculoPeloId(@PathVariable long id) {
 		return service.getVeiculoPeloId(id).map(veiculo -> ResponseEntity.ok().body(veiculo))
 				.orElse(ResponseEntity.notFound().build());
 	}
@@ -79,7 +80,7 @@ public class VeiculoController {
 
 	@GetMapping(path = "find/ultimasemana")
 	@ApiOperation(value = "Retorna número de veículos Registrados na última semana")
-	public List<Veiculo> getVeiculosRegistradosDuranteSemana() {
+	public List<VeiculoEntity> getVeiculosRegistradosDuranteSemana() {
 		Calendar calendar = new GregorianCalendar();
 		calendar.add(Calendar.DAY_OF_MONTH, -7);
 		Date primeiroDiaDaSemanaPassada = calendar.getTime();
@@ -88,12 +89,12 @@ public class VeiculoController {
 
 	@PatchMapping(path = "/{id}")
 	@ApiOperation(value = "Atualiza dados do veículo", notes = "Atualiza qualquer dado do veículo")
-	public ResponseEntity<Veiculo> atualizaVeiculo(@PathVariable("id") long id, @RequestBody Veiculo veiculoUpdate) {
-		Optional<Veiculo> veiculoOptional = service.getVeiculoPeloId(id);
+	public ResponseEntity<VeiculoEntity> atualizaVeiculo(@PathVariable("id") long id, @RequestBody VeiculoEntity veiculoUpdate) {
+		Optional<VeiculoEntity> veiculoOptional = service.getVeiculoPeloId(id);
 		if (!veiculoOptional.isPresent())
 			return ResponseEntity.notFound().build();
 
-		Veiculo veiculo = veiculoOptional.get();
+		VeiculoEntity veiculo = veiculoOptional.get();
 		if (veiculoUpdate.getMarca() != null) {
 			veiculo.setMarca(veiculoUpdate.getMarca());
 		}
@@ -110,7 +111,7 @@ public class VeiculoController {
 			veiculo.setVendido(veiculoUpdate.isVendido());
 		}
 
-		veiculo.setUpdated(new Date());
+		veiculo.setUpdated(LocalDateTime.now());
 		service.cadastraVeiculo(veiculo);
 
 		return ResponseEntity.ok().build();

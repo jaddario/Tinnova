@@ -2,13 +2,12 @@ package br.com.addario.cadastroveiculo.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.addario.cadastroveiculo.model.Veiculo;
+import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 import br.com.addario.cadastroveiculo.repository.VeiculoRepository;
 
 @Service
@@ -18,12 +17,12 @@ public class VeiculoServiceImpl implements VeiculoService {
 	private VeiculoRepository repository;
 
 	@Override
-	public List<Veiculo> getTodosOsVeiculos() {
+	public List<VeiculoEntity> getTodosOsVeiculos() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Veiculo cadastraVeiculo(Veiculo veiculo) {
+	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo) {
 		return repository.save(veiculo);
 	}
 
@@ -48,17 +47,17 @@ public class VeiculoServiceImpl implements VeiculoService {
 	}
 
 	@Override
-	public void atualizaVeiculo(long id, Veiculo veiculo) {
+	public void atualizaVeiculo(long id, VeiculoEntity veiculo) {
 		repository.updateVeiculo(id, veiculo);
 	}
 
 	@Override
-	public List<Veiculo> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada) {
+	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada) {
 		return repository.getVeiculosRegistradosDuranteAUltimaSemana(primeiroDiaDaSemanaPassada);
 	}
 
 	@Override
-	public Optional<Veiculo> getVeiculoPeloId(long id) {
+	public Optional<VeiculoEntity> getVeiculoPeloId(long id) {
 		return repository.findById(id);
 	}
 }

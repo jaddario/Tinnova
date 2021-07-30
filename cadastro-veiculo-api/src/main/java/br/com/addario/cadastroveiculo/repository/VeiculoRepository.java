@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.addario.cadastroveiculo.model.Veiculo;
+import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 
-public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
+public interface VeiculoRepository extends JpaRepository<VeiculoEntity, Long> {
 
 	@Query("select v from Veiculo v where v.vendido = FALSE")
-	public void updateVeiculo(long id, Veiculo veiculo);
+	public void updateVeiculo(long id, VeiculoEntity veiculo);
 
 	@Query("select count(v) from Veiculo v where v.vendido = FALSE")
 	public Long getVeiculosNaoVendidos();
@@ -25,6 +25,6 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
 	public Long getVeiculosPorFabricante(@Param(value = "fabricante") String fabricante);
 
 	@Query("select v from Veiculo v where v.created > :primeiroDiaDaSemanaPassada")
-	public List<Veiculo> getVeiculosRegistradosDuranteAUltimaSemana(@Param(value = "primeiroDiaDaSemanaPassada") Date primeiroDiaDaSemanaPassada);
+	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(@Param(value = "primeiroDiaDaSemanaPassada") Date primeiroDiaDaSemanaPassada);
 
 }
