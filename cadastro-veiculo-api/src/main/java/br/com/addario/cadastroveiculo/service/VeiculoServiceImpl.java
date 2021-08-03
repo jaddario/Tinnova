@@ -26,38 +26,38 @@ public class VeiculoServiceImpl implements VeiculoService {
 		return repository.save(veiculo);
 	}
 
-	@Override
-	public void removeVeiculo(long id) {
-		repository.deleteById(id);
-	}
+//	@Override
+//	public void removeVeiculo(long id) {
+//		repository.deleteById(id);
+//	}
+//
+//	@Override
+//	public Long getVeiculosNaoVendidos() {
+//		return repository.getVeiculosNaoVendidos();
+//	}
 
-	@Override
-	public Long getVeiculosNaoVendidos() {
-		return repository.getVeiculosNaoVendidos();
-	}
+//	@Override
+//	public Long getVeiculosPorDecadaDeFabricacao(int ano) {
+//		return repository.getVeiculosPorDecadaDeFabricacao(ano, ano + 10);
+//	}
 
-	@Override
-	public Long getVeiculosPorDecadaDeFabricacao(int ano) {
-		return repository.getVeiculosPorDecadaDeFabricacao(ano, ano + 10);
-	}
-
-	@Override
-	public Long getVeiculosPorFabricante(String fabricante) {
-		return repository.getVeiculosPorFabricante(fabricante);
-	}
-
-	@Override
-	public void atualizaVeiculo(long id, VeiculoEntity veiculo) {
-		repository.updateVeiculo(id, veiculo);
-	}
-
-	@Override
-	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada) {
-		return repository.getVeiculosRegistradosDuranteAUltimaSemana(primeiroDiaDaSemanaPassada);
-	}
-
-	@Override
-	public Optional<VeiculoEntity> getVeiculoPeloId(long id) {
-		return repository.findById(id);
-	}
+//	@Override
+//	public Long getVeiculosPorFabricante(String fabricante) {
+//		return repository.getVeiculosPorFabricante(fabricante);
+//	}
+//
+//	@Override
+//	public void atualizaVeiculo(long id, VeiculoEntity veiculo) {
+//		repository.updateVeiculo(id, veiculo);
+//	}
+//
+//	@Override
+//	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada) {
+//		return repository.getVeiculosRegistradosDuranteAUltimaSemana(primeiroDiaDaSemanaPassada);
+//	}
+//
+//	@Override
+//	public Optional<VeiculoEntity> getVeiculoPeloId(long id) {
+//		return repository.findById(id);
+//	}
 }

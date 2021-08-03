@@ -13,20 +13,20 @@ public interface VeiculoService {
 
 	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo);
 
-	public void removeVeiculo(long id);
+//	public void removeVeiculo(long id);
+//
+//	public void atualizaVeiculo(long id, VeiculoEntity veiculo);
+//
+//	public Long getVeiculosNaoVendidos();
+//
+//	public Long getVeiculosPorDecadaDeFabricacao(int decada);
+//
+//	public Long getVeiculosPorFabricante(String fabricante);
 
-	public void atualizaVeiculo(long id, VeiculoEntity veiculo);
-
-	public Long getVeiculosNaoVendidos();
-
-	public Long getVeiculosPorDecadaDeFabricacao(int decada);
-
-	public Long getVeiculosPorFabricante(String fabricante);
-
-	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada);
+//	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada);
 
 	public List<VeiculoEntity> getTodosOsVeiculos();
 
-	public Optional<VeiculoEntity> getVeiculoPeloId(long id);
+//	public Optional<VeiculoEntity> getVeiculoPeloId(long id);
 
 }

@@ -22,7 +22,7 @@ public class VeiculoVO {
     private LocalDateTime created;
     private LocalDateTime updated;
 
-    public VeiculoVO from(VeiculoEntity entity) {
+    public static VeiculoVO from(VeiculoEntity entity) {
         return VeiculoVO
                 .builder()
                 .id(entity.getId())
