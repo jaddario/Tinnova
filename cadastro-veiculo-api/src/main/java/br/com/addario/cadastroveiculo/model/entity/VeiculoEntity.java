@@ -1,36 +1,38 @@
 package br.com.addario.cadastroveiculo.model.entity;
 
 import br.com.addario.cadastroveiculo.model.vo.VeiculoVO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Entity
 @Builder
+@EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "VEICULOS")
 public class VeiculoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @EqualsAndHashCode.Exclude
     private Long id;
-    @Column(name = "veiculo")
+    @Column(name = "MODELO")
     private String modelo;
-    @Column(name = "fabricante")
+    @Column(name = "MARCA")
     private String marca;
-    @Column(name = "ano")
+    @Column(name = "ANO")
     private int ano;
-    @Column(name = "descricao")
+    @Column(name = "DESCRICAO")
     private String descricao;
-    @Column(name = "vendido")
+    @Column(name = "VENDIDO")
     private boolean vendido;
-    @Column(name = "created", nullable = true)
+    @Column(name = "CREATED", nullable = true)
+    @EqualsAndHashCode.Exclude
     private LocalDateTime created;
-    @Column(name = "updated", nullable = true)
+    @Column(name = "UPDATED", nullable = true)
     private LocalDateTime updated;
 
     public static VeiculoEntity from(VeiculoVO veiculoVO) {
@@ -48,3 +50,6 @@ public class VeiculoEntity {
     }
 
 }
+
+
+

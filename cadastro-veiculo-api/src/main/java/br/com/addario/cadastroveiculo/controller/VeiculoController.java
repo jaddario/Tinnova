@@ -37,14 +37,14 @@ public class VeiculoController {
 		return service.getTodosOsVeiculos();
 	}
 
-	@PostMapping
-	@ApiOperation(value = "Cadastra veículo na base", response = VeiculoEntity.class)
-	public ResponseEntity<VeiculoEntity> cadastraVeiculo(@RequestBody VeiculoEntity veiculo) {
-		VeiculoEntity veiculoSalvo = service.cadastraVeiculo(veiculo);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoSalvo.getId())
-				.toUri();
-		return ResponseEntity.created(uri).build();
-	}
+//	@PostMapping
+//	@ApiOperation(value = "Cadastra veículo na base", response = VeiculoEntity.class)
+//	public ResponseEntity<VeiculoEntity> cadastraVeiculo(@RequestBody VeiculoEntity veiculo) {
+//		VeiculoEntity veiculoSalvo = service.cadastraVeiculo(veiculo);
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoSalvo.getId())
+//				.toUri();
+//		return ResponseEntity.created(uri).build();
+//	}
 
 //	@DeleteMapping(path = "/{id}")
 //	@ApiOperation(value = "Remove veículo da base", response = Void.class)

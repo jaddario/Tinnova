@@ -11,7 +11,7 @@ import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 @Service
 public interface VeiculoService {
 
-	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo);
+//	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo);
 
 //	public void removeVeiculo(long id);
 //

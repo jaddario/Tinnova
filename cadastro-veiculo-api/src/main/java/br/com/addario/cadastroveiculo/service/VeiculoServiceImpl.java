@@ -1,30 +1,28 @@
 package br.com.addario.cadastroveiculo.service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
-import br.com.addario.cadastroveiculo.repository.VeiculoRepository;
+import br.com.addario.cadastroveiculo.repository.VeiculoDAO;
 
 @Service
 public class VeiculoServiceImpl implements VeiculoService {
 
 	@Autowired
-	private VeiculoRepository repository;
+	private VeiculoDAO repository;
 
 	@Override
 	public List<VeiculoEntity> getTodosOsVeiculos() {
 		return repository.findAll();
 	}
 
-	@Override
-	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo) {
-		return repository.save(veiculo);
-	}
+//	@Override
+//	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo) {
+//		repository.insertVeiculo(veiculo);
+//	}
 
 //	@Override
 //	public void removeVeiculo(long id) {
