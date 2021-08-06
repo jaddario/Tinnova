@@ -1,27 +1,14 @@
 package br.com.addario.cadastroveiculo.controller;
 
-import java.net.URI;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Optional;
 
+import br.com.addario.cadastroveiculo.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
-import br.com.addario.cadastroveiculo.service.VeiculoService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController

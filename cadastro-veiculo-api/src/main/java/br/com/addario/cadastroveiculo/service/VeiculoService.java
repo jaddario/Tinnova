@@ -1,32 +1,30 @@
 package br.com.addario.cadastroveiculo.service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.repository.VeiculoDAO;
 
 @Service
-public interface VeiculoService {
+public class VeiculoService {
 
-//	public VeiculoEntity cadastraVeiculo(VeiculoEntity veiculo);
+    @Autowired
+    private VeiculoDAO veiculoDAO;
 
-//	public void removeVeiculo(long id);
-//
-//	public void atualizaVeiculo(long id, VeiculoEntity veiculo);
-//
-//	public Long getVeiculosNaoVendidos();
-//
-//	public Long getVeiculosPorDecadaDeFabricacao(int decada);
-//
-//	public Long getVeiculosPorFabricante(String fabricante);
+    public List<VeiculoEntity> getTodosOsVeiculos() {
+        return veiculoDAO.findAll();
+    }
 
-//	public List<VeiculoEntity> getVeiculosRegistradosDuranteAUltimaSemana(Date primeiroDiaDaSemanaPassada);
+    public List<VeiculoEntity> getTodosOsVeiculosNaoVendidos() {
+        final List<VeiculoEntity> veiculos = veiculoDAO.findAll();
+        return veiculos.stream().filter(VeiculoService::isNaoVendido).collect(Collectors.toList());
+    }
 
-	public List<VeiculoEntity> getTodosOsVeiculos();
-
-//	public Optional<VeiculoEntity> getVeiculoPeloId(long id);
-
+    private static boolean isNaoVendido(VeiculoEntity veiculo) {
+        return !veiculo.isVendido();
+    }
 }
