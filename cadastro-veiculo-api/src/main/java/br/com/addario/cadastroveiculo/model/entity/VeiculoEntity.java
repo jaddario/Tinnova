@@ -1,5 +1,6 @@
 package br.com.addario.cadastroveiculo.model.entity;
 
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import br.com.addario.cadastroveiculo.model.vo.VeiculoVO;
 import lombok.*;
 
@@ -22,7 +23,8 @@ public class VeiculoEntity {
     @Column(name = "MODELO")
     private String modelo;
     @Column(name = "MARCA")
-    private String marca;
+    @Enumerated(EnumType.STRING)
+    private Marca marca;
     @Column(name = "ANO")
     private int ano;
     @Column(name = "DESCRICAO")

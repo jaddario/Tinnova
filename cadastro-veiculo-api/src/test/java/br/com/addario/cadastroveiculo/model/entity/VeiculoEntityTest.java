@@ -1,5 +1,6 @@
 package br.com.addario.cadastroveiculo.model.entity;
 
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import br.com.addario.cadastroveiculo.model.vo.VeiculoVO;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ class VeiculoEntityTest {
                 .builder()
                 .id(1L)
                 .modelo("Monza")
-                .marca("Fiat")
+                .marca(Marca.FIAT)
                 .ano(1998)
                 .descricao("Monza tubarão 1.0")
                 .vendido(false)

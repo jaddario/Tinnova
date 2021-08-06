@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.repository;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -28,7 +29,7 @@ class VeiculoDAOTest {
                     .BEFORE_TEST_METHOD)
     void shouldFindAllVeiculos() {
         final List<VeiculoEntity> veiculos = veiculoDAO.findAll();
-        final VeiculoEntity expectedVeiculo = createVeiculoDefault("Monza", "Fiat", 1998);
+        final VeiculoEntity expectedVeiculo = createVeiculoDefault("Monza", Marca.FIAT, 1998);
         assertThat(veiculos).hasSize(1);
         assertThat(veiculos.stream().findFirst().get())
                 .usingRecursiveComparison()
@@ -51,9 +52,9 @@ class VeiculoDAOTest {
             Sql.ExecutionPhase
                     .BEFORE_TEST_METHOD)
     void shouldUpdateMarcaDoVeiculo() {
-        veiculoDAO.updateMarca(1L, "Chevrolet");
+        veiculoDAO.updateMarca(1L, Marca.CHEVROLET);
         final VeiculoEntity veiculoEntity = veiculoDAO.findById(1L);
-        assertThat(veiculoEntity.getMarca()).isEqualTo("Chevrolet");
+        assertThat(veiculoEntity.getMarca()).isEqualTo(Marca.CHEVROLET);
     }
 
     @Test
@@ -87,7 +88,7 @@ class VeiculoDAOTest {
     }
 
 
-    private VeiculoEntity createVeiculoDefault(String modelo, String marca, int ano) {
+    private VeiculoEntity createVeiculoDefault(String modelo, Marca marca, int ano) {
         return VeiculoEntity
                 .builder()
                 .id(1L)

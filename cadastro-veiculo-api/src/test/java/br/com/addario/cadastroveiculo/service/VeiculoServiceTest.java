@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.service;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import br.com.addario.cadastroveiculo.repository.VeiculoDAO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -66,7 +67,7 @@ class VeiculoServiceTest {
         return VeiculoEntity.builder()
                 .id(id)
                 .modelo(modelo)
-                .marca("MarcaTeste")
+                .marca(Marca.FIAT)
                 .ano(1998)
                 .descricao("Veiculo de teste")
                 .vendido(vendido)

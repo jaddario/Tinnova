@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.repository;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ public interface VeiculoDAO {
 
     int updateModelo(Long veiculoId, String veiculoNovoModelo);
 
-    int updateMarca(Long veiculoId, String veiculoNovaMarca);
+    int updateMarca(Long veiculoId, Marca veiculoNovaMarca);
 
     int updateAno(Long veiculoId, int veiculoNovoAno);
 

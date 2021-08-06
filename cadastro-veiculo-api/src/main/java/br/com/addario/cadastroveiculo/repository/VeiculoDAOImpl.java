@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.repository;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 @RequiredArgsConstructor
@@ -40,7 +42,7 @@ public class VeiculoDAOImpl implements VeiculoDAO {
     }
 
     @Override
-    public int updateMarca(Long veiculoId, String veiculoNovaMarca) {
+    public int updateMarca(Long veiculoId, Marca veiculoNovaMarca) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" UPDATE VEICULOS V ")
                 .append(" SET V.marca =:novaMarca ")
@@ -48,7 +50,7 @@ public class VeiculoDAOImpl implements VeiculoDAO {
         final int executeUpdate = entityManager
                 .createNativeQuery(sql.toString(), VeiculoEntity.class)
                 .setParameter("veiculoId", veiculoId)
-                .setParameter("novaMarca", veiculoNovaMarca)
+                .setParameter("novaMarca", veiculoNovaMarca.getMarca().toUpperCase())
                 .executeUpdate();
 
         validate(executeUpdate == 1, "Veiculo não encontrado com o Id=", veiculoId);

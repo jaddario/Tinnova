@@ -17,6 +17,7 @@ public enum Marca {
     BENTLEY("bentley"),
     BMW("bmw"),
     CITROEN("citroen"),
+    CHEVROLET("chevrolet"),
     CUPRA("cupra"),
     DACIA("dacia"),
     DS("ds"),

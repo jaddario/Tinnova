@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.model.vo;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class VeiculoVO {
     private Long id;
     private String modelo;
-    private String marca;
+    private Marca marca;
     private int ano;
     private String descricao;
     private boolean vendido;
