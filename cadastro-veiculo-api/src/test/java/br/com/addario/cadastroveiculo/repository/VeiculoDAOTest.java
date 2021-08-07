@@ -24,9 +24,8 @@ class VeiculoDAOTest {
     private VeiculoDAO veiculoDAO;
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql", executionPhase =
-            Sql.ExecutionPhase
-                    .BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldFindAllVeiculos() {
         final List<VeiculoEntity> veiculos = veiculoDAO.findAll();
         final VeiculoEntity expectedVeiculo = createVeiculoDefault("Monza", Marca.FIAT, 1998);
@@ -38,9 +37,8 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql", executionPhase =
-            Sql.ExecutionPhase
-                    .BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateModeloDoVeiculo() {
         veiculoDAO.updateModelo(1L, "Passat");
         final VeiculoEntity veiculoEntity = veiculoDAO.findById(1L);
@@ -48,9 +46,8 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql", executionPhase =
-            Sql.ExecutionPhase
-                    .BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateMarcaDoVeiculo() {
         veiculoDAO.updateMarca(1L, Marca.CHEVROLET);
         final VeiculoEntity veiculoEntity = veiculoDAO.findById(1L);
@@ -58,9 +55,8 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql", executionPhase =
-            Sql.ExecutionPhase
-                    .BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateAnoDoVeiculo() {
         veiculoDAO.updateAno(1L, 1995);
         final VeiculoEntity veiculoEntity = veiculoDAO.findById(1L);
@@ -68,9 +64,8 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql", executionPhase =
-            Sql.ExecutionPhase
-                    .BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateDescricaoDoVeiculo() {
         veiculoDAO.updateDescricao(1L, "Nova descrição desse veículo irado");
         final VeiculoEntity veiculoEntity = veiculoDAO.findById(1L);
@@ -78,9 +73,8 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql", executionPhase =
-            Sql.ExecutionPhase
-                    .BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldDeleteVeiculoBrand() {
         veiculoDAO.deleteById(1L);
         final List<VeiculoEntity> veiculos = veiculoDAO.findAll();
