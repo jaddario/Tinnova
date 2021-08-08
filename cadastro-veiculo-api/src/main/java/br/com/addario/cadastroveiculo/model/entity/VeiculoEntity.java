@@ -1,5 +1,6 @@
 package br.com.addario.cadastroveiculo.model.entity;
 
+import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import br.com.addario.cadastroveiculo.model.vo.VeiculoVO;
 import lombok.*;

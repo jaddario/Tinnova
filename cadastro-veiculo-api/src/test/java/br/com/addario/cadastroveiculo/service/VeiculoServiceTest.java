@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.service;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import br.com.addario.cadastroveiculo.repository.VeiculoDAO;
 import org.junit.jupiter.api.Test;
@@ -13,9 +14,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import static java.util.stream.IntStream.*;
+import static java.util.stream.IntStream.range;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -120,6 +120,29 @@ class VeiculoServiceTest {
         assertThat(veiculosRegistradosNaUltimaSemana).hasSize(2);
     }
 
+    @Test
+    void deveRetornarUmCarroDaDecadaDeNoventa() {
+        int[] anos = {1970, 1977, 1998};
+        final List<VeiculoEntity> veiculosPorAno = createListWith3VeiculosPorAno(anos);
+        when(veiculoDAO.findAll()).thenReturn(veiculosPorAno);
+        final int numeroDeVeiculosRegistradosDaDecadaDeNoventa = veiculoService.getNumeroDeVeiculosPorDecada(Decada.D90);
+        assertThat(numeroDeVeiculosRegistradosDaDecadaDeNoventa).isEqualTo(1);
+    }
+
+
+    private VeiculoEntity createTestVeiculoUsingYear(long id, int ano) {
+        return VeiculoEntity.builder()
+                .id(id)
+                .modelo("modelo")
+                .marca(Marca.FIAT)
+                .ano(ano)
+                .descricao("Veiculo de teste")
+                .vendido(false)
+                .created(LocalDateTime.now())
+                .updated(LocalDateTime.now())
+                .build();
+    }
+
     private VeiculoEntity createTestVeiculo(long id, String modelo, Marca marca, boolean vendido) {
         return VeiculoEntity.builder()
                 .id(id)
@@ -133,7 +156,7 @@ class VeiculoServiceTest {
                 .build();
     }
 
-    private VeiculoEntity createDefaultVeiculoWithCreatedField(Long id, LocalDateTime created) {
+    private VeiculoEntity createDefaultVeiculoUsingCreatedField(Long id, LocalDateTime created) {
         return VeiculoEntity.builder()
                 .id(id)
                 .modelo("modelo")
@@ -149,10 +172,15 @@ class VeiculoServiceTest {
     private List<VeiculoEntity> createListWith3Veiculos(LocalDateTime[] registros) {
         return range(0, 3)
                 .boxed()
-                .map(id -> createDefaultVeiculoWithCreatedField((long) id, registros[id]))
+                .map(id -> createDefaultVeiculoUsingCreatedField((long) id, registros[id]))
                 .collect(Collectors.toList());
 
     }
 
-
+    private List<VeiculoEntity> createListWith3VeiculosPorAno(int[] anos) {
+        return range(0, 3)
+                .boxed()
+                .map(id -> createTestVeiculoUsingYear((long) id, anos[id]))
+                .collect(Collectors.toList());
+    }
 }

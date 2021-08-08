@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.repository;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -120,6 +121,18 @@ public class VeiculoDAOImpl implements VeiculoDAO {
         entityManager
                 .createNativeQuery(sql.toString(), VeiculoEntity.class)
                 .setParameter("veiculoId", veiculoId)
+                .executeUpdate();
+    }
+
+    @Override
+    public int findByDecada(Decada decada) {
+        final StringBuilder sql = new StringBuilder();
+        sql.append(" SELECT COUNT(*) FROM VEICULOS V ");
+        sql.append(" WHERE V.ano >=: decada and V.ano < decada");
+
+        return entityManager
+                .createNativeQuery(sql.toString())
+                .setParameter("decada", decada.getAno())
                 .executeUpdate();
     }
 

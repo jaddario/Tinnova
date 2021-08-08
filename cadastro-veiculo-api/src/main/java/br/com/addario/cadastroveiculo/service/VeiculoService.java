@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,10 @@ public class VeiculoService {
                 .stream()
                 .filter(VeiculoService::isVeiculoRegistradoNaUltimaSemana)
                 .collect(Collectors.toList());
+    }
+
+    public int getNumeroDeVeiculosPorDecada(Decada decada) {
+        return veiculoDAO.findByDecada(decada);
     }
 
     private static boolean isNaoVendido(VeiculoEntity veiculo) {

@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.repository;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,6 @@ public interface VeiculoDAO {
     VeiculoEntity findById(long id);
 
     void deleteById(long veiculoId);
+
+    int findByDecada(Decada decada);
 }
