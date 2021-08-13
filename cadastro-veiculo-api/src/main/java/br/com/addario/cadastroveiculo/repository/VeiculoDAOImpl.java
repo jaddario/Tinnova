@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
@@ -22,6 +23,7 @@ public class VeiculoDAOImpl implements VeiculoDAO {
     @Override
     @Transactional
     public void insertVeiculo(VeiculoEntity veiculo) {
+        veiculo.setCreated(LocalDateTime.now());
         entityManager.persist(veiculo);
     }
 

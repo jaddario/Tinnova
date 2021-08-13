@@ -2,6 +2,7 @@ package br.com.addario.cadastroveiculo.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.addario.cadastroveiculo.model.enums.Decada;
@@ -53,5 +54,17 @@ public class VeiculoService {
                 .getCreated()
                 .isAfter(LocalDateTime.now()
                         .minusDays(7));
+    }
+
+    public void cadastraVeiculo(VeiculoEntity veiculo) {
+        veiculoDAO.insertVeiculo(veiculo);
+    }
+
+    public void removeVeiculo(long id) {
+        veiculoDAO.deleteById(id);
+    }
+
+    public Optional<VeiculoEntity> getVeiculoPeloId(long id) {
+        return Optional.ofNullable(veiculoDAO.findById(id));
     }
 }

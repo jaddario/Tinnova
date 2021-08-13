@@ -54,7 +54,7 @@ public enum Marca {
 
     private String marca;
 
-    public static Marca fromFileName(String marcaString) {
+    public static Marca fromName(String marcaString) {
         return Arrays.stream(Marca.values())
                 .filter(marca -> marcaString.equals(marca.name()))
                 .findFirst()

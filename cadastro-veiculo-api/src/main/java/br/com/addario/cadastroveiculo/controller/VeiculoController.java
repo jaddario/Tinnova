@@ -2,11 +2,12 @@ package br.com.addario.cadastroveiculo.controller;
 
 import java.util.List;
 
+import br.com.addario.cadastroveiculo.model.enums.Marca;
 import br.com.addario.cadastroveiculo.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 import io.swagger.annotations.ApiOperation;
@@ -15,36 +16,40 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/veiculos")
 public class VeiculoController {
 
-	@Autowired
-	private VeiculoService service;
+    @Autowired
+    private VeiculoService service;
 
-	@GetMapping
-	@ApiOperation(value = "Retorna todos os veículos na base", response = VeiculoEntity.class)
-	public List<VeiculoEntity> getTodosOsVeiculos() {
-		return service.getTodosOsVeiculos();
-	}
+    @GetMapping
+    @ApiOperation(value = "Retorna todos os veículos na base", response = VeiculoEntity.class)
+    public List<VeiculoEntity> getTodosOsVeiculos() {
+        return service.getTodosOsVeiculos();
+    }
 
-//	@PostMapping
-//	@ApiOperation(value = "Cadastra veículo na base", response = VeiculoEntity.class)
-//	public ResponseEntity<VeiculoEntity> cadastraVeiculo(@RequestBody VeiculoEntity veiculo) {
-//		VeiculoEntity veiculoSalvo = service.cadastraVeiculo(veiculo);
-//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoSalvo.getId())
-//				.toUri();
-//		return ResponseEntity.created(uri).build();
-//	}
+    @PostMapping
+    @ApiOperation(value = "Cadastra veículo na base", response = VeiculoEntity.class)
+    public ResponseEntity<VeiculoEntity> cadastraVeiculo(@RequestBody VeiculoEntity veiculo) {
+        try {
+            service.cadastraVeiculo(veiculo);
+            return ResponseEntity.status(HttpStatus.CREATED).body(veiculo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(veiculo);
+        }
 
-//	@DeleteMapping(path = "/{id}")
-//	@ApiOperation(value = "Remove veículo da base", response = Void.class)
-//	public void removeVeiculo(@PathVariable long id) {
-//		service.removeVeiculo(id);
-//	}
-//
-//	@GetMapping(path = "find/{id}")
-//	@ApiOperation(value = "Retorna veículo pelo id", response = VeiculoEntity.class)
-//	public ResponseEntity<VeiculoEntity> getVeiculoPeloId(@PathVariable long id) {
-//		return service.getVeiculoPeloId(id).map(veiculo -> ResponseEntity.ok().body(veiculo))
-//				.orElse(ResponseEntity.notFound().build());
-//	}
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "Remove veículo da base", response = Void.class)
+    public void removeVeiculo(@PathVariable long id) {
+        service.removeVeiculo(id);
+    }
+
+    @GetMapping(path = "find/{id}")
+    @ApiOperation(value = "Retorna veículo pelo id", response = VeiculoEntity.class)
+    public ResponseEntity<VeiculoEntity> getVeiculoPeloId(@PathVariable long id) {
+        return service.getVeiculoPeloId(id).map(veiculo -> ResponseEntity.ok().body(veiculo))
+                .orElse(ResponseEntity.notFound().build());
+    }
 
 //	@GetMapping(path = "find/pordecada/{decada}")
 //	@ApiOperation(value = "Retorna número de veículos por década",
@@ -53,11 +58,11 @@ public class VeiculoController {
 //		return service.getVeiculosPorDecadaDeFabricacao(decada);
 //	}
 
-//	@GetMapping(path = "find/porfabricante{fabricante}")
-//	@ApiOperation(value = "Retorna número de veículos por fabricante")
-//	public Long getVeiculosPorFabricante(@PathVariable String fabricante) {
-//		return service.getVeiculosPorFabricante(fabricante);
-//	}
+	@GetMapping(path = "find/porfabricante{fabricante}")
+	@ApiOperation(value = "Retorna número de veículos por fabricante")
+	public int getVeiculosPorFabricante(@PathVariable String fabricante) {
+		return service.getVeiculosPorMarcas(Marca.fromName(fabricante.toLowerCase()));
+	}
 //
 //	@GetMapping(path = "find/naovendidos")
 //	@ApiOperation(value = "Retorna número de veículos não vendidos")
@@ -65,14 +70,11 @@ public class VeiculoController {
 //		return service.getVeiculosNaoVendidos();
 //	}
 //
-//	@GetMapping(path = "find/ultimasemana")
-//	@ApiOperation(value = "Retorna número de veículos Registrados na última semana")
-//	public List<VeiculoEntity> getVeiculosRegistradosDuranteSemana() {
-//		Calendar calendar = new GregorianCalendar();
-//		calendar.add(Calendar.DAY_OF_MONTH, -7);
-//		Date primeiroDiaDaSemanaPassada = calendar.getTime();
-//		return service.getVeiculosRegistradosDuranteAUltimaSemana(primeiroDiaDaSemanaPassada);
-//	}
+	@GetMapping(path = "find/ultimasemana")
+	@ApiOperation(value = "Retorna número de veículos Registrados na última semana")
+	public List<VeiculoEntity> getVeiculosRegistradosDuranteSemana() {
+		return service.getVeiculosRegistradosNaUltimaSemana();
+	}
 //
 //	@PatchMapping(path = "/{id}")
 //	@ApiOperation(value = "Atualiza dados do veículo", notes = "Atualiza qualquer dado do veículo")
