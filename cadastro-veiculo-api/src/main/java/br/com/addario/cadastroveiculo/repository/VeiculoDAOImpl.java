@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -27,71 +26,55 @@ public class VeiculoDAOImpl implements VeiculoDAO {
     }
 
     @Override
-    public int updateModelo(Long veiculoId, String veiculoNovoModelo) {
+    public void updateModelo(Long veiculoId, String veiculoNovoModelo) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" UPDATE VEICULOS V ")
                 .append(" SET V.modelo =:novoModelo ")
                 .append(" WHERE V.id =:veiculoId ");
-        final int executeUpdate = entityManager
+        entityManager
                 .createNativeQuery(sql.toString(), VeiculoEntity.class)
                 .setParameter("veiculoId", veiculoId)
                 .setParameter("novoModelo", veiculoNovoModelo)
                 .executeUpdate();
-
-        validate(executeUpdate == 1, "Veiculo não encontrado com o Id=", veiculoId);
-
-        return executeUpdate;
     }
 
     @Override
-    public int updateMarca(Long veiculoId, Marca veiculoNovaMarca) {
+    public void updateMarca(Long veiculoId, Marca veiculoNovaMarca) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" UPDATE VEICULOS V ")
                 .append(" SET V.marca =:novaMarca ")
                 .append(" WHERE V.id =:veiculoId ");
-        final int executeUpdate = entityManager
+        entityManager
                 .createNativeQuery(sql.toString(), VeiculoEntity.class)
                 .setParameter("veiculoId", veiculoId)
                 .setParameter("novaMarca", veiculoNovaMarca.getNomeDaMarca())
                 .executeUpdate();
-
-        validate(executeUpdate == 1, "Veiculo não encontrado com o Id=", veiculoId);
-
-        return executeUpdate;
     }
 
     @Override
-    public int updateAno(Long veiculoId, int veiculoNovoAno) {
+    public void updateAno(Long veiculoId, int veiculoNovoAno) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" UPDATE VEICULOS V ")
                 .append(" SET V.ano =:novoAno ")
                 .append(" WHERE V.id =:veiculoId ");
-        final int executeUpdate = entityManager
+        entityManager
                 .createNativeQuery(sql.toString(), VeiculoEntity.class)
                 .setParameter("veiculoId", veiculoId)
                 .setParameter("novoAno", veiculoNovoAno)
                 .executeUpdate();
-
-        validate(executeUpdate == 1, "Veiculo não encontrado com o Id=", veiculoId);
-
-        return executeUpdate;
     }
 
     @Override
-    public int updateDescricao(Long veiculoId, String veiculoNovaDescricao) {
+    public void updateDescricao(Long veiculoId, String veiculoNovaDescricao) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" UPDATE VEICULOS V ")
                 .append(" SET V.descricao =:novaDescricao ")
                 .append(" WHERE V.id =:veiculoId ");
-        final int executeUpdate = entityManager
+        entityManager
                 .createNativeQuery(sql.toString(), VeiculoEntity.class)
                 .setParameter("veiculoId", veiculoId)
                 .setParameter("novaDescricao", veiculoNovaDescricao)
                 .executeUpdate();
-
-        validate(executeUpdate == 1, "Veiculo não encontrado com o Id=", veiculoId);
-
-        return executeUpdate;
     }
 
     @Override
@@ -136,11 +119,5 @@ public class VeiculoDAOImpl implements VeiculoDAO {
                 .setParameter("decadaInicio", decada.getAno())
                 .setParameter("decadaFim", decada.getAno() + 10)
                 .getSingleResult()).intValue();
-    }
-
-    private static void validate(boolean expression, String message, Object value) {
-        if (expression == false) {
-            throw new IllegalArgumentException(message + value);
-        }
     }
 }

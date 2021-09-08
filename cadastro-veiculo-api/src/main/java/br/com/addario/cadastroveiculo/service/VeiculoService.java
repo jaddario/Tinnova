@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import br.com.addario.cadastroveiculo.exceptions.VeiculoNaoEncontradoException;
 import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class VeiculoService {
     @Autowired
     private VeiculoDAO veiculoDAO;
 
+    public void cadastraVeiculo(VeiculoEntity veiculo) {
+        veiculo.setCreated(LocalDateTime.now());
+        veiculoDAO.insertVeiculo(veiculo);
+    }
+
     public List<VeiculoEntity> getTodosOsVeiculos() {
         return veiculoDAO.findAll();
     }
@@ -30,7 +36,7 @@ public class VeiculoService {
 
     public int getVeiculosPorMarcas(Marca marca) {
         final List<VeiculoEntity> veiculos = getTodosOsVeiculos();
-        return (int) veiculos.stream().filter(veiculo -> veiculo.getMarca().equals(marca)).count();
+        return (int) veiculos.stream().filter(veiculo -> veiculo.getMarca().equals(marca.getNomeDaMarca())).count();
     }
 
     public List<VeiculoEntity> getVeiculosRegistradosNaUltimaSemana() {
@@ -45,6 +51,22 @@ public class VeiculoService {
         return veiculoDAO.findByDecada(decada);
     }
 
+    public void updateMarca(Long veiculoId, Marca marca) {
+        veiculoDAO.updateMarca(veiculoId, marca);
+    }
+
+    public void updateModelo(Long veiculoId, String modelo) {
+        veiculoDAO.updateModelo(veiculoId, modelo);
+    }
+
+    public void updateDescricao(Long veiculoId, String descricao) {
+        veiculoDAO.updateDescricao(veiculoId, descricao);
+    }
+
+    public void updateAno(Long veiculoId, int ano) {
+        veiculoDAO.updateAno(veiculoId, ano);
+    }
+
     private static boolean isNaoVendido(VeiculoEntity veiculo) {
         return !veiculo.isVendido();
     }
@@ -54,10 +76,6 @@ public class VeiculoService {
                 .getCreated()
                 .isAfter(LocalDateTime.now()
                         .minusDays(7));
-    }
-
-    public void cadastraVeiculo(VeiculoEntity veiculo) {
-        veiculoDAO.insertVeiculo(veiculo);
     }
 
     public void removeVeiculo(long id) {

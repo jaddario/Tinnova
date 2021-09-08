@@ -4,8 +4,6 @@ import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,13 +12,13 @@ public interface VeiculoDAO {
 
     void insertVeiculo(VeiculoEntity veiculo);
 
-    int updateModelo(Long veiculoId, String veiculoNovoModelo);
+    void updateModelo(Long veiculoId, String veiculoNovoModelo);
 
-    int updateMarca(Long veiculoId, Marca veiculoNovaMarca);
+    void updateMarca(Long veiculoId, Marca veiculoNovaMarca);
 
-    int updateAno(Long veiculoId, int veiculoNovoAno);
+    void updateAno(Long veiculoId, int veiculoNovoAno);
 
-    int updateDescricao(Long veiculoId, String veiculoNovaDescricao);
+    void updateDescricao(Long veiculoId, String veiculoNovaDescricao);
 
     List<VeiculoEntity> findAll();
 
