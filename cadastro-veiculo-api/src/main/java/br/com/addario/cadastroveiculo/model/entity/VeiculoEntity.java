@@ -17,15 +17,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "VEICULOS")
 public class VeiculoEntity {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Id
     @EqualsAndHashCode.Exclude
     private Long id;
     @Column(name = "MODELO")
     private String modelo;
     @Column(name = "MARCA")
-    @Enumerated(EnumType.STRING)
-    private Marca marca;
+    private String marca;
     @Column(name = "ANO")
     private int ano;
     @Column(name = "DESCRICAO")

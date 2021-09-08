@@ -1,6 +1,7 @@
 package br.com.addario.cadastroveiculo.repository;
 
 import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,12 +25,20 @@ class VeiculoDAOTest {
     private VeiculoDAO veiculoDAO;
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+    void shouldInsertEntityThenInsertTheSameAndReturnException() {
+        final VeiculoEntity i360 = createVeiculoDefault(1L, "i360", Marca.NISSAN.getNomeDaMarca(), 2018);
+        veiculoDAO.insertVeiculo(i360);
+        final List<VeiculoEntity> todosOsVeiculos = veiculoDAO.findAll();
+        assertThat(todosOsVeiculos).hasSize(1).contains(i360);
+    }
+
+    @Test
+    @Sql(scripts = "classpath:/db/create-veiculo-database.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldFindAllVeiculos() {
         final List<VeiculoEntity> veiculos = veiculoDAO.findAll();
-        final VeiculoEntity expectedVeiculo = createVeiculoDefault("Monza", Marca.FIAT, 1998);
-        assertThat(veiculos).hasSize(1);
+        final VeiculoEntity expectedVeiculo = createVeiculoDefault(1L, "Monza", Marca.FIAT.getNomeDaMarca(), 1998);
+        assertThat(veiculos).hasSize(6);
         assertThat(veiculos.stream().findFirst().get())
                 .usingRecursiveComparison()
                 .ignoringFields("created", "updated")
@@ -37,7 +46,7 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+    @Sql(scripts = "classpath:/db/create-veiculo-database.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateModeloDoVeiculo() {
         veiculoDAO.updateModelo(1L, "Passat");
@@ -46,16 +55,16 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+    @Sql(scripts = "classpath:/db/create-veiculo-database.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateMarcaDoVeiculo() {
         veiculoDAO.updateMarca(1L, Marca.CHEVROLET);
         final VeiculoEntity veiculoEntity = veiculoDAO.findById(1L);
-        assertThat(veiculoEntity.getMarca()).isEqualTo(Marca.CHEVROLET);
+        assertThat(veiculoEntity.getMarca()).isEqualTo(Marca.CHEVROLET.getNomeDaMarca());
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+    @Sql(scripts = "classpath:/db/create-veiculo-database.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateAnoDoVeiculo() {
         veiculoDAO.updateAno(1L, 1995);
@@ -64,7 +73,7 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+    @Sql(scripts = "classpath:/db/create-veiculo-database.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldUpdateDescricaoDoVeiculo() {
         veiculoDAO.updateDescricao(1L, "Nova descrição desse veículo irado");
@@ -73,19 +82,27 @@ class VeiculoDAOTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:/db/insert-veiculo.sql",
+    @Sql(scripts = "classpath:/db/create-veiculo-database.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void shouldFind3VeiculosInDecada90() {
+        final int numeroDeVeiculosPorDecada = veiculoDAO.findByDecada(Decada.D90);
+        assertThat(numeroDeVeiculosPorDecada).isEqualTo(3);
+    }
+
+    @Test
+    @Sql(scripts = "classpath:/db/create-veiculo-database.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void shouldDeleteVeiculoBrand() {
-        veiculoDAO.deleteById(1L);
+        veiculoDAO.deleteById(3L);
         final List<VeiculoEntity> veiculos = veiculoDAO.findAll();
-        assertThat(veiculos).hasSize(0);
+        assertThat(veiculos).hasSize(5);
     }
 
 
-    private VeiculoEntity createVeiculoDefault(String modelo, Marca marca, int ano) {
+    private VeiculoEntity createVeiculoDefault(long id, String modelo, String marca, int ano) {
         return VeiculoEntity
                 .builder()
-                .id(1L)
+                .id(id)
                 .modelo(modelo)
                 .marca(marca)
                 .descricao("Monza tubarão")

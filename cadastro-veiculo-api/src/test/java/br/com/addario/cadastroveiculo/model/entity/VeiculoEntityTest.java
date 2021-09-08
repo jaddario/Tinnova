@@ -26,7 +26,7 @@ class VeiculoEntityTest {
                 .builder()
                 .id(1L)
                 .modelo("Monza")
-                .marca(Marca.FIAT)
+                .marca(Marca.FIAT.getNomeDaMarca())
                 .ano(1998)
                 .descricao("Monza tubarão 1.0")
                 .vendido(false)

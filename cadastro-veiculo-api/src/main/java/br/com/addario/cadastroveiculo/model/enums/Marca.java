@@ -52,7 +52,7 @@ public enum Marca {
     VOLKSWAGEN("wolkswagen"),
     VOLVO("volvo");
 
-    private String marca;
+    private String nomeDaMarca;
 
     public static Marca fromName(String marcaString) {
         return Arrays.stream(Marca.values())

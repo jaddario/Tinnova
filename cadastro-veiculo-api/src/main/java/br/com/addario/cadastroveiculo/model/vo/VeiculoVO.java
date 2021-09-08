@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class VeiculoVO {
     private Long id;
     private String modelo;
-    private Marca marca;
+    private String marca;
     private int ano;
     private String descricao;
     private boolean vendido;

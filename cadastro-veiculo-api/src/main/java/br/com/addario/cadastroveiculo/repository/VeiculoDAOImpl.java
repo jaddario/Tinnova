@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,7 +23,6 @@ public class VeiculoDAOImpl implements VeiculoDAO {
     @Override
     @Transactional
     public void insertVeiculo(VeiculoEntity veiculo) {
-        veiculo.setCreated(LocalDateTime.now());
         entityManager.persist(veiculo);
     }
 
@@ -53,7 +52,7 @@ public class VeiculoDAOImpl implements VeiculoDAO {
         final int executeUpdate = entityManager
                 .createNativeQuery(sql.toString(), VeiculoEntity.class)
                 .setParameter("veiculoId", veiculoId)
-                .setParameter("novaMarca", veiculoNovaMarca.getMarca().toUpperCase())
+                .setParameter("novaMarca", veiculoNovaMarca.getNomeDaMarca())
                 .executeUpdate();
 
         validate(executeUpdate == 1, "Veiculo não encontrado com o Id=", veiculoId);
@@ -130,12 +129,13 @@ public class VeiculoDAOImpl implements VeiculoDAO {
     public int findByDecada(Decada decada) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" SELECT COUNT(*) FROM VEICULOS V ");
-        sql.append(" WHERE V.ano >=: decada and V.ano < decada");
+        sql.append(" WHERE V.ano >=:decadaInicio and V.ano <:decadaFim");
 
-        return entityManager
+        return ((BigInteger) entityManager
                 .createNativeQuery(sql.toString())
-                .setParameter("decada", decada.getAno())
-                .executeUpdate();
+                .setParameter("decadaInicio", decada.getAno())
+                .setParameter("decadaFim", decada.getAno() + 10)
+                .getSingleResult()).intValue();
     }
 
     private static void validate(boolean expression, String message, Object value) {

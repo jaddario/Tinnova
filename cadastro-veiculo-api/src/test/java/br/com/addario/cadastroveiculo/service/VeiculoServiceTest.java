@@ -30,9 +30,9 @@ class VeiculoServiceTest {
 
     @Test
     void deveRetornarUmVeiculoVendidoDeUmaListaDeTresVeiculos() {
-        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT, true);
-        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA, true);
-        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD, false);
+        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT.getNomeDaMarca(), true);
+        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA.getNomeDaMarca(), true);
+        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD.getNomeDaMarca(), false);
 
         when(veiculoDAO.findAll()).thenReturn(Arrays.asList(monza, corola, omega));
         final List<VeiculoEntity> VeiculosNaoVendidos = veiculoService.getTodosOsVeiculosNaoVendidos();
@@ -41,9 +41,9 @@ class VeiculoServiceTest {
 
     @Test
     void deveRetornarDoisVeiculosVendidosDeUmaListaDeTresVeiculos() {
-        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT, true);
-        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA, false);
-        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD, false);
+        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT.getNomeDaMarca(), true);
+        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA.getNomeDaMarca(), false);
+        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD.getNomeDaMarca(), false);
 
         when(veiculoDAO.findAll()).thenReturn(Arrays.asList(monza, corola, omega));
         final List<VeiculoEntity> veiculosNaoVendidos = veiculoService.getTodosOsVeiculosNaoVendidos();
@@ -52,9 +52,9 @@ class VeiculoServiceTest {
 
     @Test
     void deveRetornarTresVeiculosVendidosDeUmaListaDeTresVeiculos() {
-        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT, false);
-        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA, false);
-        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD, false);
+        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT.getNomeDaMarca(), false);
+        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA.getNomeDaMarca(), false);
+        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD.getNomeDaMarca(), false);
 
         when(veiculoDAO.findAll()).thenReturn(Arrays.asList(monza, corola, omega));
         final List<VeiculoEntity> veiculosNaoVendidos = veiculoService.getTodosOsVeiculosNaoVendidos();
@@ -63,9 +63,9 @@ class VeiculoServiceTest {
 
     @Test
     void deveRetornarUmVeiculoDaMarcaFord() {
-        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT, false);
-        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA, false);
-        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD, false);
+        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT.getNomeDaMarca(), false);
+        final VeiculoEntity corola = createTestVeiculo(2L, "Corola", Marca.TOYOTA.getNomeDaMarca(), false);
+        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD.getNomeDaMarca(), false);
 
         when(veiculoDAO.findAll()).thenReturn(Arrays.asList(monza, corola, omega));
         final int quantidadeDeVeiculosPorMarca = veiculoService.getVeiculosPorMarcas(Marca.FORD);
@@ -74,9 +74,9 @@ class VeiculoServiceTest {
 
     @Test
     void deveRetornarDoisVeiculosDaMarcaFord() {
-        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT, false);
-        final VeiculoEntity ka = createTestVeiculo(2L, "Ka", Marca.FORD, false);
-        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD, false);
+        final VeiculoEntity monza = createTestVeiculo(1L, "Monza", Marca.FIAT.getNomeDaMarca(), false);
+        final VeiculoEntity ka = createTestVeiculo(2L, "Ka", Marca.FORD.getNomeDaMarca(), false);
+        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD.getNomeDaMarca(), false);
 
         when(veiculoDAO.findAll()).thenReturn(Arrays.asList(monza, ka, omega));
         final int quantidadeDeVeiculosPorMarca = veiculoService.getVeiculosPorMarcas(Marca.FORD);
@@ -85,9 +85,9 @@ class VeiculoServiceTest {
 
     @Test
     void deveRetornarTresVeiculosDaMarcaFord() {
-        final VeiculoEntity mustang = createTestVeiculo(1L, "Mustang", Marca.FORD, false);
-        final VeiculoEntity ka = createTestVeiculo(2L, "Ka", Marca.FORD, false);
-        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD, false);
+        final VeiculoEntity mustang = createTestVeiculo(1L, "Mustang", Marca.FORD.getNomeDaMarca(), false);
+        final VeiculoEntity ka = createTestVeiculo(2L, "Ka", Marca.FORD.getNomeDaMarca(), false);
+        final VeiculoEntity omega = createTestVeiculo(3L, "Omega", Marca.FORD.getNomeDaMarca(), false);
 
         when(veiculoDAO.findAll()).thenReturn(Arrays.asList(mustang, ka, omega));
         final int quantidadeDeVeiculosPorMarca = veiculoService.getVeiculosPorMarcas(Marca.FORD);
@@ -134,7 +134,7 @@ class VeiculoServiceTest {
         return VeiculoEntity.builder()
                 .id(id)
                 .modelo("modelo")
-                .marca(Marca.FIAT)
+                .marca(Marca.FIAT.getNomeDaMarca())
                 .ano(ano)
                 .descricao("Veiculo de teste")
                 .vendido(false)
@@ -143,7 +143,7 @@ class VeiculoServiceTest {
                 .build();
     }
 
-    private VeiculoEntity createTestVeiculo(long id, String modelo, Marca marca, boolean vendido) {
+    private VeiculoEntity createTestVeiculo(long id, String modelo, String marca, boolean vendido) {
         return VeiculoEntity.builder()
                 .id(id)
                 .modelo(modelo)
@@ -160,7 +160,7 @@ class VeiculoServiceTest {
         return VeiculoEntity.builder()
                 .id(id)
                 .modelo("modelo")
-                .marca(Marca.FIAT)
+                .marca(Marca.FIAT.getNomeDaMarca())
                 .ano(1998)
                 .descricao("Veiculo de teste")
                 .vendido(false)
