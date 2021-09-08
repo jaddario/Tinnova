@@ -1,18 +1,17 @@
 package br.com.addario.cadastroveiculo.service;
 
+import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
+import br.com.addario.cadastroveiculo.model.enums.Decada;
+import br.com.addario.cadastroveiculo.model.enums.Marca;
+import br.com.addario.cadastroveiculo.repository.VeiculoDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import br.com.addario.cadastroveiculo.exceptions.VeiculoNaoEncontradoException;
-import br.com.addario.cadastroveiculo.model.enums.Decada;
-import br.com.addario.cadastroveiculo.model.enums.Marca;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
-import br.com.addario.cadastroveiculo.repository.VeiculoDAO;
 
 @Service
 public class VeiculoService {

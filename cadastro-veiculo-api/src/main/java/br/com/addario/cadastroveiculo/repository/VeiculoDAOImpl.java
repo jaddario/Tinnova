@@ -4,6 +4,7 @@ import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class VeiculoDAOImpl implements VeiculoDAO {
 
     @PersistenceContext
+    @Qualifier(value = "entityManager")
     private EntityManager entityManager;
 
     @Override

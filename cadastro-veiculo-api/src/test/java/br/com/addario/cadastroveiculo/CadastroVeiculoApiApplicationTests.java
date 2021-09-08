@@ -10,13 +10,5 @@ import br.com.addario.cadastroveiculo.controller.VeiculoController;
 
 @SpringBootTest
 class CadastroVeiculoApiApplicationTests {
-	
-	@Autowired
-	private VeiculoController controller;
-
-	@Test
-	void contextLoads() {
-		assertThat(controller).isNotNull();
-	}
 
 }

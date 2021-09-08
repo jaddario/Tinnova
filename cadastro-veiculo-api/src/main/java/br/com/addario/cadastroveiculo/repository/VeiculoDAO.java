@@ -4,10 +4,11 @@ import br.com.addario.cadastroveiculo.model.entity.VeiculoEntity;
 import br.com.addario.cadastroveiculo.model.enums.Decada;
 import br.com.addario.cadastroveiculo.model.enums.Marca;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 public interface VeiculoDAO {
 
     void insertVeiculo(VeiculoEntity veiculo);
