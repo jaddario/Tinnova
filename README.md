@@ -1,9 +1,11 @@
 # Tinnova
 
+Prova prática de desenvolvimento para o cargo de Engenheiro de Software Sênior da Tinnova. 
+
 ## Cadastro de veículos API
 Api RESTFul para consulta e manutenção de uma listagem de veículos.
 
-## Conigurações
+## Configurações
 Como banco de dados, utilizei a solução H2. As configurações de URL, usuário e senha do banco estão armazenadas no arquivo application.properties e estão exibidas abaixo:
 ```
 spring.h2.console.enabled=true
